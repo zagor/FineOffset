@@ -1,3 +1,11 @@
+/*
+ * FineOffset - Transmit temperature and humidity using the Fine Offset
+ * wireless protocol.
+ *
+ * Copyright (c) 2016 Björn Stenberg <bjorn@haxx.se>
+ * License: MIT, see file LICENSE
+ *
+ */
 #pragma once
 #include "Arduino.h"
 
