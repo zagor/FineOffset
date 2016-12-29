@@ -10,25 +10,30 @@ It works on both ATmega and ATtiny cpus.
 
 ## Usage notes
 
-The constructor takes three paramters: Transmit pin, device id, and optionally then number of transmit repeats (default 3).
+The constructor takes two parameters: `transmit_pin` and optionally the number of transmit `repeats`
+* `transmit_pin` is the cpu i/o port pin where the tx module data pin is connected
+* `repeats` is the number of times each message will be sent. Default is 3.
 
-send() takes two parameters: Temperature and optional humidity. If you don't specify humidity, 255 will be sent.
+send() takes three parameters: `device_id`, `temperature` and optional `humidity`:
+* `device_id` is a value 1-255 identifying your wireless sensor to the receiver.
+* `temperature` is a float. The protocol supports one decimal accuracy.
+* `humidity` is the relative humidity, 0-100%. If you don't specify it, a value of 255 will be sent.
 
 ## Example code
 ```C
 #include "FineOffset.h"
 
-#define TX_PIN 4
+#define TX_PIN PORTB4
 #define DEVICE_ID 242
 
-FineOffset tx(TX_PIN, DEVICE_ID);
+FineOffset tx(TX_PIN);
 
 void loop(void)
 {
    float temp = some_sensor.read_temp();
    int hum = other_sensor.read_hum();
    
-   tx.send(temp, hum);
+   tx.send(DEVICE_ID, temp, hum);
    delay(30000);
 }
 ```
