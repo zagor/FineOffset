@@ -8,10 +8,9 @@
  */
 #include <FineOffset.h>
 
-FineOffset::FineOffset(int transmit_pin, int device_id, int repeat_count)
+FineOffset::FineOffset(int transmit_pin, int repeat_count)
 {
   pin = transmit_pin;
-  id = device_id;
   repeat = repeat_count;
   pinMode(pin, OUTPUT);
 }
@@ -30,7 +29,7 @@ void FineOffset::send_byte(uint8_t byte)
   }
 }
 
-void FineOffset::send(float temperature, int humidity)
+void FineOffset::send(int device_id, float temperature, int humidity)
 {
   uint8_t crc;
   uint8_t bytes[4];
@@ -38,7 +37,7 @@ void FineOffset::send(float temperature, int humidity)
   int sign = (temperature < 0) ? 1 : 0;
 
   uint32_t data =
-    ((long)id << 20) |
+    ((long)device_id << 20) |
     ((long)sign << 19) |
     ((long)inttemp << 8) |
     (long)humidity;
